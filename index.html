@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>30-Day Etsy Traffic Challenge — Premium</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    /* ============================================
+       PREMIUM GLOBAL RESET & BASE
+    ============================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    }
+
+    body {
+      background: #0D1117;
+      color: #E2E8F0;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1E293B; }
+    ::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #64748B; }
+
+    /* ============================================
+       SIDEBAR
+    ============================================ */
+    .sidebar {
+      width: 260px;
+      background: #111827;
+      padding: 28px 22px;
+      border-right: 1px solid #1F2937;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .sidebar h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #F8FAFC;
+      margin-bottom: 10px;
+    }
+
+    .day-list div {
+      padding: 12px 14px;
+      background: #1E293B;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      color: #E2E8F0;
+      font-size: 14px;
+      transition: 0.25s ease;
+    }
+
+    .day-list div:hover {
+      background: #2A3648;
+      transform: translateX(4px);
+    }
+
+    .day-list .active {
+      background: linear-gradient(135deg, #3B82F6, #06B6D4);
+      border-left: 4px solid #FACC15;
+      color: #0F172A;
+      font-weight: 600;
+    }
+
+    /* ============================================
+       MAIN CONTENT
+    ============================================ */
+    .main {
+      flex: 1;
+      padding: 40px;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #F8FAFC;
+    }
+
+    p {
+      color: #CBD5E1;
+      margin-bottom: 20px;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* Gradient header */
+    .header-gradient {
+      background: linear-gradient(135deg, #3B82F6, #06B6D4);
+      padding: 22px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      color: #0F172A;
+      font-weight: 700;
+      font-size: 20px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-gradient small {
+      font-weight: 400;
+      font-size: 13px;
+      color: #0F172A;
+      opacity: 0.9;
+    }
+
+    /* ============================================
+       TASK LIST
+    ============================================ */
+    .task {
+      display: flex;
+      gap: 12px;
+      padding: 14px;
+      background: #1E293B;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      align-items: flex-start;
+      transition: 0.25s ease;
+    }
+
+    .task:hover {
+      background: #273449;
+      transform: translateX(4px);
+    }
+
+    .task input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: #22C55E;
+      cursor: pointer;
+    }
+
+    .task label {
+      font-size: 15px;
+      color: #F1F5F9;
+      line-height: 1.5;
+    }
+
+    /* ============================================
+       STATS CARDS
+    ============================================ */
+    .stats {
+      display: flex;
+      gap: 20px;
+      margin: 30px 0;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      background: #1E293B;
+      padding: 18px;
+      border-radius: 14px;
+      border: 1px solid #334155;
+      min-width: 140px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    }
+
+    .stat span {
+      font-size: 22px;
+      font-weight: 700;
+      color: #38BDF8;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .stat label {
+      font-size: 12px;
+      color: #94A3B8;
+    }
+
+    /* ============================================
+       BUTTONS
+    ============================================ */
+    .btn {
+      padding: 12px 20px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15px;
+      transition: 0.25s ease;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      opacity: 0.95;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #FACC15, #EAB308);
+      color: #1E293B;
+    }
+
+    .btn-blue {
+      background: linear-gradient(135deg, #3B82F6, #06B6D4);
+      color: #0F172A;
+    }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 900px) {
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        display: flex;
+        overflow-x: auto;
+      }
+
+      .main {
+        padding: 24px;
+      }
+
+      .stats {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div>
+      <h3>30-Day Etsy Traffic Challenge</h3>
+      <div id="dayList" class="day-list"></div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="header-gradient">
+      <div>
+        <div>Digital Success Academy™ — Etsy Traffic Core</div>
+        <small>Daily micro-tasks, streaks, and points to grow your Etsy traffic.</small>
+      </div>
+      <button class="btn btn-gold" id="todayBtn">Go To Today</button>
+    </div>
+
+    <h2 id="dayTitle"></h2>
+    <p id="dayIntro"></p>
+
+    <div id="taskContainer"></div>
+
+    <div class="stats">
+      <div class="stat">
+        <label>Total Points</label>
+        <span id="points">0</span>
+      </div>
+      <div class="stat">
+        <label>Current Streak</label>
+        <span id="streak">0</span>
+      </div>
+      <div class="stat">
+        <label>Days Completed</label>
+        <span id="done">0</span>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    /* ============================================================
+       PREMIUM 30-DAY ETSY CHALLENGE ENGINE
+    ============================================================ */
+
+    // 1. Challenge Data (sample 3 days — extend to 30 as needed)
+    const challengeDays = [
+      {
+        title: "Day 1 — Kickoff & Baseline",
+        intro: "Start your challenge by setting your baseline and clear 30-day goals.",
+        tasks: [
+          "Log into your Etsy Seller Dashboard.",
+          "Record last 30-day visits, orders, and revenue.",
+          "Identify your top 3 best-performing listings.",
+          "Write your 30-day traffic and revenue goal."
+        ]
+      },
+      {
+        title: "Day 2 — Traffic Pillars & Strategy",
+        intro: "Map your current traffic sources and choose your main growth levers.",
+        tasks: [
+          "List your current traffic sources (Etsy search, Pinterest, social, etc.).",
+          "Choose 3 new channels you will test this month.",
+          "Pick your primary growth lever (SEO, Pinterest, or Short-form video).",
+          "Save 5 competitor shops you want to model."
+        ]
+      },
+      {
+        title: "Day 3 — Shop Foundation & Trust",
+        intro: "Upgrade your shop’s first impression and trust signals.",
+        tasks: [
+          "Update your shop banner to match your niche and style.",
+          "Rewrite your shop announcement with a clear promise and benefit.",
+          "Add or refine at least 3 shop sections for clarity.",
+          "Add at least 5 FAQ items (shipping, returns, custom, etc.)."
+        ]
+      }
+      // Add up to Day 30 here following the same structure
+    ];
+
+    // 2. Local Storage
+    let state = JSON.parse(localStorage.getItem("challengeState") || "{}");
+    if (!state.tasks) state.tasks = {};
+    if (state.currentDay === undefined) state.currentDay = 0;
+
+    function saveState() {
+      localStorage.setItem("challengeState", JSON.stringify(state));
+    }
+
+    // 3. Check if a day is complete
+    function isDayComplete(dayIndex) {
+      const tasks = state.tasks[dayIndex] || {};
+      return challengeDays[dayIndex].tasks.every((_, i) => tasks[i]);
+    }
+
+    // 4. Render sidebar day list
+    function renderDayList() {
+      const list = document.getElementById("dayList");
+      list.innerHTML = "";
+
+      challengeDays.forEach((day, index) => {
+        const div = document.createElement("div");
+        div.textContent = `${index + 1}. ${day.title}`;
+        div.dataset.id = index;
+
+        if (state.currentDay === index) div.classList.add("active");
+        if (isDayComplete(index)) div.style.borderColor = "#22C55E";
+
+        div.onclick = () => {
+          state.currentDay = index;
+          saveState();
+          renderAll();
+        };
+
+        list.appendChild(div);
+      });
+    }
+
+    // 5. Render current day
+    function renderDay() {
+      const day = challengeDays[state.currentDay];
+
+      document.getElementById("dayTitle").textContent = day.title;
+      document.getElementById("dayIntro").textContent = day.intro;
+
+      const container = document.getElementById("taskContainer");
+      container.innerHTML = "";
+
+      const savedTasks = state.tasks[state.currentDay] || {};
+
+      day.tasks.forEach((task, i) => {
+        const div = document.createElement("div");
+        div.className = "task";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = savedTasks[i] || false;
+        checkbox.dataset.index = i;
+
+        checkbox.onchange = () => {
+          if (!state.tasks[state.currentDay]) state.tasks[state.currentDay] = {};
+          state.tasks[state.currentDay][i] = checkbox.checked;
+          saveState();
+          updateStats();
+          renderDayList();
+        };
+
+        const label = document.createElement("label");
+        label.textContent = task;
+
+        div.appendChild(checkbox);
+        div.appendChild(label);
+        container.appendChild(div);
+      });
+    }
+
+    // 6. Update stats
+    function updateStats() {
+      let points = 0;
+      let streak = 0;
+      let daysDone = 0;
+
+      challengeDays.forEach((day, index) => {
+        const tasks = state.tasks[index] || {};
+        let allDone = true;
+
+        day.tasks.forEach((_, i) => {
+          if (tasks[i]) points++;
+          else allDone = false;
+        });
+
+        if (allDone) {
+          points += 2; // daily bonus
+          daysDone++;
+          streak++;
+        } else {
+          streak = 0;
+        }
+      });
+
+      state.points = points;
+      state.streak = streak;
+      state.daysDone = daysDone;
+
+      document.getElementById("points").textContent = points;
+      document.getElementById("streak").textContent = streak;
+      document.getElementById("done").textContent = daysDone;
+
+      saveState();
+    }
+
+    // 7. Render everything
+    function renderAll() {
+      renderDayList();
+      renderDay();
+      updateStats();
+    }
+
+    // 8. Go To Today button
+    document.getElementById("todayBtn").onclick = () => {
+      renderAll();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    // 9. Init
+    renderAll();
+  </script>
+</body>
+</html>
